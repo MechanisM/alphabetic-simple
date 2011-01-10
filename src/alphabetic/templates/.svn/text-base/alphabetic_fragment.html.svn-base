@@ -1,0 +1,20 @@
+<div class="alphabet">
+<div align="center">
+  {% for item in letters %}
+  {{ item|safe }}
+  {% endfor %}
+</div></div>
+<script type="text/javascript">
+$(function() {
+  $("div.alphabet span.group.rolled > a").live('click', function(){
+    var groupEl = $(this).parent();
+    $.ajax({url: "{% url alphabetic:remember_group group='group' %}", 
+          data: {group: groupEl.attr('id').substring("{{ prefix }}".length)  },
+          success: function (data) {
+        	  groupEl.addClass('expanded').removeClass('rolled').siblings('span.group.expanded').addClass('rolled').removeClass('expanded');
+          }
+    });
+    return false;
+  });
+})
+</script>

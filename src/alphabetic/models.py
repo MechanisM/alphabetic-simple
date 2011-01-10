@@ -1,0 +1,10 @@
+### -*- coding: utf-8 -*- ####################################################
+
+SESSION_GROUP_KEY = 'alphabetic_default_group'
+DEFAULT_GROUP = 'rus'
+
+def get_group(request):
+    return request.session.get(SESSION_GROUP_KEY, DEFAULT_GROUP)
+
+def set_group(request, group_key):
+    request.session[SESSION_GROUP_KEY] = group_key
