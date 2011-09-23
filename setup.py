@@ -18,7 +18,7 @@ install_requires = [
 
 #Execute function to handle setuptools functionality
 setup(name="alphabetic-simple",
-    version="0.1",
+    version="0.2",
     description="Alphabetic template tag to filter django queryset",
     long_description=read('README'),
     packages=find_packages('src'),
