@@ -7,23 +7,12 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 from native_tags.decorators import function
 
 from .models import get_group
+from .utils import alphabetic_setup, term_lookup
 
 PARAM_NAME = 'firstletter'
 
-def term_lookup(request, param_name=PARAM_NAME):
-    return request.REQUEST.get(param_name, '')
-alphabetic_term = function(term_lookup, takes_request=1, name="get_alphabetic_term")
-
-def alphabetic_setup(request, object_list, field_name='title', param_name=PARAM_NAME):
-    term = term_lookup(request, param_name)
-    if term:
-        if hasattr(object_list, 'filter'):
-            object_list = object_list.filter(**{"%s__iregex" % field_name: r'^[%s]' % term})
-        else:
-            object_list = filter(lambda obj: getattr(obj, field_name).startswith(term), object_list)
-    
-    return object_list
-alphabetic_setup = function(alphabetic_setup, takes_request=1)
+alphabetic_term = function(term_lookup, takes_request=True, name="get_alphabetic_term")
+alphabetic_setup = function(alphabetic_setup, takes_request=True)
     
 
 class Group:
